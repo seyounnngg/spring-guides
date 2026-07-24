@@ -5,18 +5,18 @@ Spring 공식 Getting Started Guides를 단계별로 따라 구현하고,
 
 ## 진행 현황
 
-| 단계 | Guide | 상태 |
-|---|---|---|
-| [01](./01-rest-service) | Building a RESTful Web Service | 🔄 진행 중 (Step 1~2 완료) |
-| [02](./02-serving-web-content) | Serving Web Content with Spring MVC | 🔄 진행 중 (Step 1 완료) |
-| 03 | Handling Form Submission | ⬜ |
-| 04 | Validating Form Input | ⬜ |
-| 05 | Uploading Files | ⬜ |
-| 06 | Accessing Data with JPA | ⬜ |
-| 07 | Accessing JPA Data with REST | ⬜ |
-| 08 | Building a Hypermedia-Driven RESTful Web Service | ⬜ |
-| 09 | Testing the Web Layer | ⬜ |
-| 10 | Securing a Web Application | ⬜ |
+| 단계                                  | Guide                                            | 상태      |
+|-------------------------------------|--------------------------------------------------|---------|
+| [01](./01-rest-service)             | Building a RESTful Web Service                   | ✅ 완료    |
+| [02](./02-serving-web-content)      | Serving Web Content with Spring MVC              | ✅ 완료    |
+| [03](./03-handling-form-submission) | Handling Form Submission                         | 🔄 진행 중 |
+| 04                                  | Validating Form Input                            | ⬜       |
+| 05                                  | Uploading Files                                  | ⬜       |
+| 06                                  | Accessing Data with JPA                          | ⬜       |
+| 07                                  | Accessing JPA Data with REST                     | ⬜       |
+| 08                                  | Building a Hypermedia-Driven RESTful Web Service | ⬜       |
+| 09                                  | Testing the Web Layer                            | ⬜       |
+| 10                                  | Securing a Web Application                       | ⬜       |
 
 ## 학습 방식 (각 Guide 공통)
 
