@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+</head>
+<body>
+<h1>Feedback Form</h1>
+<form action="#" method="post" th:action="@{/greeting}" th:object="${greeting}">
+    <p>Id: <input th:field="*{id}" type="text"/></p>
+    <p>Message: <input th:field="*{content}" type="text"/></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+</body>
+</html>
