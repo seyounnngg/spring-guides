@@ -5,6 +5,9 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 </head>
 <body>
-<p th:text="|Hello, ${name}!|"/>
+<h1>지금까지의 인사말 목록</h1>
+<ul>
+    <li th:each="greeting : ${greetings}" th:text="${greeting}"></li>
+</ul>
 </body>
 </html>
