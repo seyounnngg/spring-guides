@@ -5,8 +5,10 @@
 </head>
 <body>
 <h1>Feedback Form</h1>
-<form action="#" method="post" th:action="@{/greeting}" th:object="${greeting}">
-    <p>Id: <input th:field="*{id}" type="text"/></p>
+<form method="post"
+      th:action="${greeting.id == 0} ? @{/greeting} : @{/greeting/{id}(id=${greeting.id})}" th:object="${greeting}">
+    <p th:if="${greeting.id != 0}">Id: <input readonly th:field="*{id}" type="text"/></p>
+    <input th:field="*{id}" th:if="${greeting.id == 0}" type="hidden"/>
     <p>Message: <input th:field="*{content}" type="text"/></p>
     <p><input type="submit" value="Submit"/></p>
 </form>

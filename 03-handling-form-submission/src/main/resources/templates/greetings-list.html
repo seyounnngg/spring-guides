@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+</head>
+<body>
+<h1>지금까지 제출된 메시지 목록</h1>
+<ul>
+    <li th:each="g : ${greetings}">
+        <span th:text="'id: ' + ${g.id} + ', content: ' + ${g.content}"></span>
+        &nbsp;
+        <a th:href="@{/greeting/{id}/edit(id=${g.id})}">수정</a>
+    </li>
+</ul>
+<a href="/greeting">새 메시지 제출하기</a>
+</body>
+</html>
