@@ -1,8 +1,6 @@
 package com.example.validatingforminput;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class PersonForm {
 
@@ -13,6 +11,10 @@ public class PersonForm {
     @NotNull
     @Min(18)
     private Integer age;
+
+    @NotBlank
+    @Email
+    private String email;
 
     public String getName() {
         return this.name;
@@ -30,7 +32,15 @@ public class PersonForm {
         this.age = age;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String toString() {
-        return "Person(Name: " + this.name + ", Age: " + this.age + ")";
+        return "Person(Name: " + this.name + ", Age: " + this.age + ", Email: " + this.email + ")";
     }
 }
