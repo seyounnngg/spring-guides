@@ -33,6 +33,10 @@ public class FileUploadController {
                                 "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList()));
 
+        model.addAttribute("filenames", storageService.loadAll()
+                .map(path -> path.getFileName().toString())
+                .collect(Collectors.toList()));
+
         return "uploadForm";
     }
 
@@ -56,6 +60,15 @@ public class FileUploadController {
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/files/{filename:.+}/delete")
+    public String deleteFile(@PathVariable String filename, RedirectAttributes redirectAttributes) {
+
+        storageService.delete(filename);
+        redirectAttributes.addFlashAttribute("message", filename + " 파일을 삭제했습니다.");
 
         return "redirect:/";
     }

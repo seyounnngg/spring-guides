@@ -23,8 +23,11 @@
 
 <div>
     <ul>
-        <li th:each="file : ${files}">
+        <li th:each="file, iter : ${files}">
             <a th:href="${file}" th:text="${file}"/>
+            <form method="POST" style="display:inline;" th:action="@{'/files/' + ${filenames[iter.index]} + '/delete'}">
+                <button type="submit">삭제</button>
+            </form>
         </li>
     </ul>
 </div>

@@ -51,3 +51,39 @@
   → 쿠키/시크릿 모드 여부와 무관하게 동일하게 발생하는 것을 확인해 코드 문제가 아님을 좁혀냄
   → application.properties에 server.servlet.session.tracking-modes=cookie 를 추가해
   세션 추적 방식을 쿠키로 고정시켜 URL에 세션ID가 붙는 현상을 막아 해결함
+
+## Step 4: 기능 확장 — 파일 삭제 기능 추가
+
+기존에는 파일 업로드(Create), 목록 조회 및 다운로드(Read)만 가능했는데,
+파일 삭제(Delete) 기능을 추가해 CRUD 흐름을 이 도메인에서도 완성했다.
+
+### 추가한 것
+
+- StorageService 인터페이스에 delete(filename) 메서드 추가
+- FileSystemStorageService에서 Files.deleteIfExists(...)로 실제 파일 삭제 구현
+- POST /files/{filename}/delete 엔드포인트 추가 (삭제는 상태를 변경하는 작업이므로 GET이 아닌 POST 사용)
+- 목록 화면에 각 파일마다 삭제 버튼(폼) 추가
+
+### 설계 관련 고민
+
+- 처음에는 목록의 다운로드 URL 문자열에서 Thymeleaf 문자열 함수(#strings.substringAfter)로
+  파일명을 역산해서 삭제 폼에 쓰려고 했으나, 원본 가이드가 "View는 단순하게, 컨트롤러가 필요한
+  형태로 미리 가공해서 넘긴다"는 설계 스타일(예: MvcUriComponentsBuilder로 URL을 컨트롤러에서
+  미리 계산해 넘기는 방식)을 따르고 있다는 걸 다시 확인하고, 컨트롤러에서 filenames 리스트를
+  별도로 하나 더 Model에 담아 View에서는 단순히 인덱스로 매칭만 하도록 수정함
+
+### 실행 화면
+
+![delete button](./screenshots/delete-button.png)
+![delete success](./screenshots/delete-success.png)
+
+## 느낀 점
+
+- @Autowired 생성자 주입 덕분에, 컨트롤러가 StorageService 인터페이스만 알고 있으면 되고
+  실제 구현체(FileSystemStorageService)가 무엇인지 몰라도 된다는 설계를 실전에서 체감함
+- StorageException, StorageFileNotFoundException처럼 예외를 계층적으로 나눠두면,
+  @ExceptionHandler로 특정 예외만 골라서 다르게 처리할 수 있다는 걸 확인함
+- 새 기능을 추가할 때, 그 프로젝트의 기존 설계 스타일(여기서는 "View는 단순하게 유지")을
+  일관되게 따르는 것이 중요하다는 걸 삭제 기능 구현 과정에서 배움
+- try (자원 = ...) { } 형태의 try-with-resources와, 예외를 잡는 일반 try-catch가
+  서로 다른 목적(자원 자동 해제 vs 예외 처리)을 가진다는 것을 구분해서 이해함
