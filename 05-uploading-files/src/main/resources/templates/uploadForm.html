@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+</div>
+
+<div>
+    <form action="/" enctype="multipart/form-data" method="POST">
+        <table>
+            <tr>
+                <td>File to upload:</td>
+                <td><input name="file" type="file"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Upload"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div>
+    <ul>
+        <li th:each="file, iter : ${files}">
+            <a th:href="${file}" th:text="${file}"/>
+            <form method="POST" style="display:inline;" th:action="@{'/files/' + ${filenames[iter.index]} + '/delete'}">
+                <button type="submit">삭제</button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

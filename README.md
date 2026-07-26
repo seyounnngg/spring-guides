@@ -11,7 +11,7 @@ Spring 공식 Getting Started Guides를 단계별로 따라 구현하고,
 | [02](./02-serving-web-content)      | Serving Web Content with Spring MVC              | ✅ 완료 |
 | [03](./03-handling-form-submission) | Handling Form Submission                         | ✅ 완료 |
 | [04](./04-validating-form-input)    | Validating Form Input                            | ✅ 완료 |
-| 05                                  | Uploading Files                                  | ⬜    |
+| [05](./05-uploading-files)          | Uploading Files                                  | ✅ 완료 |
 | 06                                  | Accessing Data with JPA                          | ⬜    |
 | 07                                  | Accessing JPA Data with REST                     | ⬜    |
 | 08                                  | Building a Hypermedia-Driven RESTful Web Service | ⬜    |
