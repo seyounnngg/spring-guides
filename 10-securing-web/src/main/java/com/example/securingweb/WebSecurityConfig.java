@@ -1,6 +1,5 @@
 package com.example.securingweb;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,9 +19,16 @@ class WebSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home").permitAll().anyRequest().authenticated())
-                .formLogin((form) -> form.loginPage("/login").permitAll())
+        http
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin((form) -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
                 .logout(LogoutConfigurer::permitAll);
 
         return http.build();
@@ -35,9 +41,16 @@ class WebSecurityConfig {
 
     @Bean
     UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        String password = encoder.encode("password");
-        UserDetails user = User.withUsername("user").password(password).roles("USER").build();
+        UserDetails user = User.withUsername("user")
+                .password(encoder.encode("password"))
+                .roles("USER")
+                .build();
 
-        return new InMemoryUserDetailsManager(user);
+        UserDetails admin = User.withUsername("admin")
+                .password(encoder.encode("adminpass"))
+                .roles("ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
     }
 }
